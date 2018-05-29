@@ -38,7 +38,7 @@ float PT100_temperature;
 int LDR_value;
 float BMP_pressure;
 float BMP_altitude;
-int YL_soilhumidity;
+float YL_soilhumidity;
 float DHT_humidity;
 float DHT_temperature;
 
@@ -94,7 +94,7 @@ void loop() {
   //BMP altitude value
   BMP_altitude = bmp.readAltitude();
   //YL soil humidity value
-  YL_soilhumidity = analogRead(YL69);
+  YL_soilhumidity = analogRead(YL69)/1024;
   //DHT humidity value
   DHT_humidity = dht.readHumidity();
   //DHT temperature value
@@ -114,14 +114,23 @@ void loop() {
         pinNumber += (Serial2.read() - 48);
         digitalWrite(pinNumber, !digitalRead(pinNumber));
       }
+      String finish = "</html>";
 
       /////////////////////Sending data to browser
       else
       {
-        String webpage = "<h1>WAFFI ME LA CHUPA</h1>";
-        espsend(webpage);
+        String webpage = "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+                         + String("<title>PLANT MONITOR</title><meta name=\"description\" content=\"The HTML5 Herald\"><meta name=\"author\" content=\"Juan Manuel Lovera\"><link rel=\"stylesheet\" href=\"css/styles.css?v=1.0\">")
+                         + "<style>body, html {background-color: #CCFFFF;height: 100vh}.nav {height: 10%;background-color: #99CCCC;}.nav h1 {padding-top: 1em;color: #F0FAFA;text-align: center;position: center;margin: auto;font-family: sans-serif;height: 100%}"
+                         + ".inviter {color: #FF9999;padding-left: 10px;font-family: sans-serif;}.card {background-color: #FFFFFF;box-shadow: 0 4px 8px 0 #FFCCCC;transition: 0.3s;width: 20%;height: 250px;padding: 10px;padding-bottom: 30px;margin: 20px;}"
+                         + ".container {padding: 2px 16px;color: #CC6666;text-aling: left;}.inline {text-align: center;margin: auto;position: center;}.inline div {display: inline-block;}.data-title {color: #FF9999}"
+                         + ".data {text-aling: left;color: #CC6666;font-size: 20px;}table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}td, th {border: 1px solid #dddddd;text-align: left;padding: 8px;color: #CC6666;}"
+                         + "tr:nth-child(even) {background-color: rgba(204, 102, 102, 0.2);}.warning-card {background-color: #FFFFFF;box-shadow: 0 4px 8px 0 #FFCCCC;transition: 0.3s;width: 20%;height: 200px;padding: 10px;padding-bottom: 30px;margin: 20px;}"
+                         + "li{font-family: sans-serif;font-size: 25px;}</style></head><body><div class=\"nav\"><h1>PLANT MONITOR</h1></div><h2 class=\"inviter\">HERE IS YOUR PLANT INFO</h2>";
+        espsend(webpage+finish);
       }
 
+      String temperature = "";
       if (LM35_temperature != 0 && LM35_temperature < 100)
       {
         String add1 = "<h4>Temperature=</h4>";
@@ -130,17 +139,19 @@ void loop() {
         add1 += "&#x2103"; //////////Hex code for degree celcius
         espsend(add1);
       }
-
       else
       {
         String c = "LM35 is not connected";
         espsend(c);
       }
 
-      String closeCommand = "AT+CIPCLOSE=";  ////////////////close the socket connection////esp command
-      closeCommand += connectionId; // append connection id
-      closeCommand += "\r\n";
-      sendData(closeCommand, 3000, DEBUG);
+      String humidity = "";
+      String pressure = "";
+
+      //String closeCommand = "AT+CIPCLOSE=";  ////////////////close the socket connection////esp command
+      //closeCommand += connectionId; // append connection id
+      //closeCommand += "\r\n";
+      //sendData(closeCommand, 3000, DEBUG);
     }
   }
 }
