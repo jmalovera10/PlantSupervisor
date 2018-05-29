@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PLANT MONITOR</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <style>
+        body, html {background-color: #CCFFFF;height: 100vh}
+        .nav {height: 10%;background-color: #99CCCC;}
+        .nav h1 {padding-top: 1em;color: #F0FAFA;text-align: center;position: center;margin: auto;font-family: sans-serif;height: 100%}
+        .inviter {color: #FF9999;padding-left: 10px;font-family: sans-serif;}
+        .card {background-color: #FFFFFF;box-shadow: 0 4px 8px 0 #FFCCCC;transition: 0.3s;width: 20%;height: 250px;padding: 10px;padding-bottom: 30px;margin: 20px;}
+        .container {padding: 2px 16px;color: #CC6666;text-aling: left;}
+        .inline {text-align: center;margin: auto;position: center;}
+        .inline div {display: inline-block;}
+        .data-title {color: #FF9999}
+        .data {text-aling: left;color: #CC6666;font-size: 20px;}
+        table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+        td, th {border: 1px solid #dddddd;text-align: left;padding: 8px;color: #CC6666;}
+        tr:nth-child(even) {background-color: rgba(204, 102, 102, 0.2);}
+        .warning-card {background-color: #FFFFFF;box-shadow: 0 4px 8px 0 #FFCCCC;transition: 0.3s;width: 20%;height: 200px;padding: 10px;padding-bottom: 30px;margin: 20px;}
+        li{font-family: sans-serif;font-size: 25px;}
+    </style>
+</head>
+<body>
+<div class="nav">
+    <h1>PLANT MONITOR</h1>
+</div>
+<h2 class="inviter">
+    HERE IS YOUR PLANT INFO
+</h2>
+<div class="inline">
+    <div class="card">
+        <div class="container">
+            <h2 class="data-title"><b>Temperature</b></h2>
+            <table>
+                <tr><th>SENSOR</th><th>VALUE</th><th>STATUS</th></tr>
+                <tr><td>LM35</td><td>25&#x2103</td><td>NORMAL</td></tr>
+                <tr><td>PT100</td><td>25&#x2103</td><td>NORMAL</td></tr>
+                <tr><td>DHT11</td><td>25&#x2103</td><td>NORMAL</td></tr>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="container">
+            <h2 class="data-title"><b>Humidity</b></h2>
+            <table>
+                <tr><th>SENSOR</th><th>VALUE</th><th>STATUS</th></tr>
+                <tr><td>DHT11</td><td>25%</td><td>BELOW</td></tr>
+                <tr><td>YL69</td><td>25%</td><td>BELOW</td></tr>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="container">
+            <h2 class="data-title"><b>Pressure</b></h2>
+            <table>
+                <tr><th>SENSOR</th><th>VALUE</th><th>STATUS</th></tr>
+                <tr><td>BMP180</td><td>2atm</td><td>OVER</td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="inline">
+    <div class="warning-card">
+        <div class="container">
+            <h2 class="data-title">Alerts</h2>
+            <ul><li>LOW HUMIDITY</li><li>HIGH PRESSURE</li></ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

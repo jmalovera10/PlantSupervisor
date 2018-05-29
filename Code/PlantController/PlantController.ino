@@ -18,6 +18,11 @@
 #define DHT11 7
 #define DEBUG true
 
+/*-----------
+   CONSTANTS
+  -----------*/
+#define YL_THLD 400
+
 /*---------------------
    LIBRARY CONSTRUCTORS
   ----------------------*/
@@ -94,7 +99,7 @@ void loop() {
   DHT_humidity = dht.readHumidity();
   //DHT temperature value
   DHT_temperature = dht.readTemperature();
-  
+
   if (Serial2.available())
   {
     /////////////////////Recieving from web browser to toggle led
@@ -120,7 +125,7 @@ void loop() {
       if (LM35_temperature != 0 && LM35_temperature < 100)
       {
         String add1 = "<h4>Temperature=</h4>";
-        String two =  String(LM35_temperature, 3);
+        String two =  String(LM35_temperature, 2);
         add1 += two;
         add1 += "&#x2103"; //////////Hex code for degree celcius
         espsend(add1);
